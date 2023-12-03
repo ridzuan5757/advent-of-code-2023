@@ -39,9 +39,12 @@ int32_t main(int arc, char *argv[]) {
   std::string line;
   while (std::getline(input_file, line)) {
     std::string numbers{extract(line)};
-    std::string candidate =
-        numbers.front().to_string() + numbers.back().to_string();
-    std::cout << candidate << std::endl;
+    if (numbers != "") {
+      std::string sum =
+          std::string{numbers.front()} + std::string{numbers.back()};
+      result += std::stoi(sum);
+      std::cout << sum << std::endl;
+    }
   }
 
   std::cout << result << std::endl;
