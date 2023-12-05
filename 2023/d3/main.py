@@ -51,6 +51,12 @@ class Coords:
             self.get_adj_br()
         ]
 
+    def get_adj_x(self):
+        return [coords["x"] for coords in self.get_adj()]
+
+    def get_adj_y(self):
+        return [coords["y"] for coords in self.get_adj()]
+
 
 class Part:
     def __init__(self, partval):
@@ -95,7 +101,3 @@ with open(sys.argv[1]) as f:
                 if not char.isdigit():
                     # print(f"char: {char} x:{x} y:{y}")
                     symbolCollection.append(Coords(char, x, y))
-
-print("testing")
-print(symbolCollection[0])
-pprint(symbolCollection[0].get_adj())
