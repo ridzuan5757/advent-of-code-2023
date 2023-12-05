@@ -1,5 +1,5 @@
-from re import L
 import sys
+from pprint import pprint
 
 
 class Coords:
@@ -16,28 +16,40 @@ class Coords:
         return f"Val:{self.val} x:{self.x} y:{self.y}"
 
     def get_adj_tl(self):
-        return {x: self.x - 1, y: self.y - 1}
+        return {"x": self.x - 1, "y": self.y - 1}
 
     def get_adj_tc(self):
-        return {x: self.x, y: self.y - 1}
+        return {"x": self.x, "y": self.y - 1}
 
     def get_adj_tr(self):
-        return {x: self.x + 1, y: self.y - 1}
+        return {"x": self.x + 1, "y": self.y - 1}
 
     def get_adj_cl(self):
-        return {x: self.x - 1, y: self.y}
+        return {"x": self.x - 1, "y": self.y}
 
     def get_adj_cr(self):
-        return {x: self.x + 1, y: self.y}
+        return {"x": self.x + 1, "y": self.y}
 
     def get_adj_bl(self):
-        return {x: self.x - 1, y: y.self + 1}
+        return {"x": self.x - 1, "y": self.y + 1}
 
     def get_adj_bc(self):
-        return {x: self.x, y: y.self + 1}
+        return {"x": self.x, "y": self.y + 1}
 
     def get_adj_br(self):
-        return {x: self.x + 1, y: y.self + 1}
+        return {"x": self.x + 1, "y": self.y + 1}
+
+    def get_adj(self):
+        return [
+            self.get_adj_tl(),
+            self.get_adj_tc(),
+            self.get_adj_tr(),
+            self.get_adj_cl(),
+            self.get_adj_cr(),
+            self.get_adj_bl(),
+            self.get_adj_bc(),
+            self.get_adj_br()
+        ]
 
 
 class Part:
@@ -84,9 +96,6 @@ with open(sys.argv[1]) as f:
                     # print(f"char: {char} x:{x} y:{y}")
                     symbolCollection.append(Coords(char, x, y))
 
-
-for symbol in symbolCollection:
-    print(symbol)
-    print("adjacent x check")
-    print(f"x:{symbol.x} x-1:{symbol.x - 1} x+1:{symbol.x + 1}")
-    print(f"y:{symbol.y} y-1:{symbol.y - 1} y+1:{symbol.y + 1}\n")
+print("testing")
+print(symbolCollection[0])
+pprint(symbolCollection[0].get_adj())
