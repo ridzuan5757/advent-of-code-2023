@@ -1,4 +1,8 @@
+from subprocess import check_call
+from subprocess import check_call
+from subprocess import check_call
 import sys
+from pprint import pprint
 
 
 class Coords:
@@ -28,12 +32,6 @@ class Part:
     def length(self):
         return len(self.partval)
 
-    def value(self):
-        return int(self.partval)
-
-    def __repr__(self):
-        return f"Part: {self.partval} list: {self.coords_list}"
-
 
 partsCollection = []
 symbolCollection = []
@@ -51,19 +49,17 @@ with open(sys.argv[1]) as f:
             # append every part coordinates inside part
             for idx, part in enumerate(partstring):
                 part_obj.insert(Coords(part, idx + location, y))
-            partsCollection.append(part_obj)
 
         # symbol check_call
         for x, char in enumerate(line):
             if char != ".":
-                if not char.isdigit():
+                if char.isdigit():
+                    partsCollection.append(Coords(char, x, y))
+                else:
                     # print(f"char: {char} x:{x} y:{y}")
                     symbolCollection.append(Coords(char, x, y))
 
 for symbol in symbolCollection:
     print(symbol)
-
-
-print("************************\n")
-for part in partsCollection:
-    print(part)
+    c
+    check_call
