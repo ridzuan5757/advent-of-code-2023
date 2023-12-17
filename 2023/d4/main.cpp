@@ -1,7 +1,50 @@
+#include <algorithm>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
+#include <ostream>
+#include <sstream>
 #include <string>
+#include <tuple>
+#include <vector>
+
+std::vector<std::string> splitString(const std::string &input,
+                                     const char delim) {
+  std::istringstream stream(input);
+  std::vector<std::string> tokens;
+  std::string token;
+
+  while (std::getline(stream >> std::ws, token, delim)) {
+    tokens.push_back(token);
+  }
+
+  return tokens;
+}
+
+std::vector<int> stringToVector(const std::string &input) {
+  std::cout << input << std::endl;
+
+  std::istringstream stream(input);
+  std::vector<int> result;
+  std::string token;
+
+  while (std::getline(stream >> std::ws, token, ' ')) {
+    result.push_back(std::stoi(token));
+  }
+
+  return result;
+}
+
+template <typename T> void printVector(const std::vector<T> arr) {
+  for (const auto &i : arr) {
+    std::cout << i << " ";
+  }
+  std::cout << std::endl;
+}
+
+int32_t getDay(const std::string &input) {
+  return std::stoi(input.substr(input.length() - 1));
+}
 
 int32_t main(int argc, char *argv[]) {
   std::ifstream input(argv[1]);
@@ -13,7 +56,11 @@ int32_t main(int argc, char *argv[]) {
 
   std::string line;
   while (std::getline(input, line)) {
-    std::cout << line << std::endl;
+    std::vector<std::string> data = splitString(line, ':');
+    int day = getDay(data[0]);
+    std::vector<std::string> ticketData = splitString(data[1], '|');
+    std::vector<int> winningTicket = stringToVector(ticketData[0]);
+    std::vector<int> ticket = stringToVector(ticketData[1]);
   }
 
   input.close();
