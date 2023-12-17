@@ -22,7 +22,6 @@ std::vector<std::string> splitString(const std::string &input,
 }
 
 std::vector<int> stringToVector(const std::string &input) {
-  std::cout << input << std::endl;
 
   std::istringstream stream(input);
   std::vector<int> result;
@@ -47,6 +46,8 @@ int32_t getDay(const std::string &input) {
 }
 
 int32_t main(int argc, char *argv[]) {
+  int totalWin = 0;
+
   std::ifstream input(argv[1]);
 
   if (!input.is_open()) {
@@ -61,8 +62,23 @@ int32_t main(int argc, char *argv[]) {
     std::vector<std::string> ticketData = splitString(data[1], '|');
     std::vector<int> winningTicket = stringToVector(ticketData[0]);
     std::vector<int> ticket = stringToVector(ticketData[1]);
+
+    int winCount = 0;
+
+    for (const auto &i : ticket) {
+      auto it = std::find(winningTicket.begin(), winningTicket.end(), i);
+
+      if (it != winningTicket.end()) {
+        std::cout << "Found " << i << "in ";
+        printVector(winningTicket);
+        winCount += 1;
+      }
+    }
+
+    totalWin += winCount;
   }
 
   input.close();
+  std::cout << "Total win: " << totalWin << std::endl;
   return 0;
 }
