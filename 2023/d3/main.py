@@ -13,10 +13,14 @@ def check_adjacent(f, coords):
         (1, 1)
     ]
 
-    print("number grid check", f[coords[0]][coords[1]], coords)
-
     for candidate in candidates:
         y, x = tuple(map(lambda x, y: x + y, coords, candidate))
+
+        try:
+            print("number grid check",
+                  f[coords[0]][coords[1]], coords, "adjacent value: ", f[y][x])
+        except Exception:
+            pass
 
         try:
             if not f[y][x].isnumeric() and f[y][x] != ".":
@@ -39,21 +43,34 @@ with open(sys.argv[1]) as f:
         line_length = len(line)
         part_number = ""
 
-        for x, char in enumerate(line[0]):
+        for x, char in enumerate(line):
 
             if char.isnumeric():
+                print("char ", char)
 
                 part_number += char
                 is_adjacent = check_adjacent(grid_data, (y, x))
 
-                print(char, "adjacent: ", is_adjacent)
+                # print(char, "adjacent: ", is_adjacent, "\n")
                 is_real_part |= is_adjacent
 
-            else:
-                if is_real_part and part_number != "":
-                    print(part_number)
-                    sum.append(int(part_number))
+                try:
+                    if grid_data[y][x+1].isnumeric() is False:
 
-                part_number = ""
+                        print("next item is not a number", grid_data[y][x+1])
+
+                        if is_real_part and part_number != "":
+                            print(part_number, "has adjacent symbol\n\n")
+                            sum.append(int(part_number))
+                            is_real_part = False
+
+                        part_number = ""
+                except Exception:
+                    pass
 
 print(sum)
+val = 0
+for x in sum:
+    val += x
+
+print(val)

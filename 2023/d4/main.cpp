@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cmath>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -69,13 +70,16 @@ int32_t main(int argc, char *argv[]) {
       auto it = std::find(winningTicket.begin(), winningTicket.end(), i);
 
       if (it != winningTicket.end()) {
-        std::cout << "Found " << i << "in ";
-        printVector(winningTicket);
+        // std::cout << "Found " << i << "in ";
+        // printVector(winningTicket);
         winCount += 1;
       }
     }
 
-    totalWin += winCount;
+    if (winCount > 0) {
+      totalWin += std::pow(2, winCount - 1);
+      std::cout << totalWin << std::endl;
+    }
   }
 
   input.close();
